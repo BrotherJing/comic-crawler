@@ -1,0 +1,1 @@
+for /l %%i in (0,1,500) do if %%i lss %2 phantomjs getPage.js %1 %%i result.txt
