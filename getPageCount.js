@@ -4,10 +4,12 @@ SUFFIX_2 = '&s=0';
 var fs = require('fs'),system = require('system'),address;
 
 var page = require('webpage').create();
+page.settings.userAgent = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.120 Safari/537.36';
+page.settings.loadImages = false;
 
 if (system.args.length !== 3) {
     console.log('Usage: getPageCount.js <some URL> <file name>');
-	page.close();
+	//page.close();
     phantom.exit(1);
 } else {
 	filename = system.args[2];
@@ -22,7 +24,7 @@ if (system.args.length !== 3) {
 			});
 			fs.write(filename, pc, 'w');
 		}
-		page.close();
+		//page.close();
 		phantom.exit();
 	});
 }
