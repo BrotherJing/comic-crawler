@@ -1,0 +1,1 @@
+phantomjs getPage.js %1 %2 result.txt

@@ -1,12 +1,13 @@
 SUFFIX_1 = '?p=';
 SUFFIX_2 = '&s=0';
+FAILED_FILE_NAME = 'failed.txt';
+
 var page = require('webpage').create(),
     system = require('system'),
     address;
 var found = false;
 var fs = require('fs'),regExp = new RegExp("http://.*\.JPG");
 page.settings.userAgent = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.120 Safari/537.36';
-//page.settings.loadImages = false;
 page.settings.resourceTimeout = 10*1000;
 
 if (system.args.length !== 4) {
@@ -17,9 +18,6 @@ if (system.args.length !== 4) {
     address = system.args[1];
     pagenumber = parseInt(system.args[2])+1;
     filename = system.args[3];
-    /*page.onResourceRequested = function (req) {
-        console.log('requested: ' + JSON.stringify(req, undefined, 4));
-    };*/
 
     page.onResourceRequested = function (request) {
         var url = request.url;
@@ -33,6 +31,7 @@ if (system.args.length !== 4) {
     };
     page.onResourceTimeout = function(){
         console.log('timeout');
+        fs.write(FAILED_FILE_NAME,(pagenumber-1).toString()+'\r\n','a');
         page.close();
         phantom.exit();
     }

@@ -22,7 +22,9 @@ if (system.args.length !== 3) {
 			var pc = page.evaluate(function(){
 				return document.getElementById('spPageCount').textContent;
 			});
-			fs.write(filename, pc, 'w');
+			for(var i=0;i<parseInt(pc);++i){
+				fs.write(filename, i.toString()+'\r\n', 'a');
+			}
 		}
 		//page.close();
 		phantom.exit();
